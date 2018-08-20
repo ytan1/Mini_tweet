@@ -1,21 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Article;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Auth;
+
 class ArticleController extends Controller
 {
     //
 
     public function create(Request $request){
-        $vali = Validator::make($request->any(), [
+        $this->validate($request, [
             'content' => 'required|string|max:200|min:5',
-            'uris' => 'nullable|string'
+            'uris' => 'nullable|string',
+            'user_id'=>'nullable|integer',
+            'user_name'=>'required|string'
         ]);
-        $vali->validate();
 
-        Article::create(\request(['content', 'uris']));
-        return response(array("msg"=>"create success!"), 200);
+        Article::create(request(['content', 'uris','user_id', 'user_name']));
+        return response()->json(request(['content', 'uris','user_id', 'user_name']));
+
+    }
+
+    public function getAll(){
+        return response(Article::all(), 200);
     }
 }

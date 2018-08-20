@@ -21,5 +21,11 @@ Route::group([
     Route::post('file', 'UploadController@upload');
     Route::delete('file', 'UploadController@delete');
 
+    Route::get('article', 'ArticleController@getAll');
     Route::post('article','ArticleController@create');
+
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+    Route::get('me','AuthController@me');
+    Route::get('logout', 'AuthController@logout');
 });

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 class UploadController extends Controller
 {
     //
+    public function __construct()
+    {
+        //if anonymous upload is not allowed, uncomment this line
+       //$this->middleware('auth:api', ['except' => []]);
+    }
     public function upload(Request $request)
     {
         $path = $request->file('file')->storePublicly(md5(time()));
